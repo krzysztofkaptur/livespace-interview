@@ -8,7 +8,7 @@ type TProps = {
 
 export default function DefaultLayout({ children }: TProps) {
   return (
-    <section>
+    <section className="layout layout--default">
       <Sidebar />
       {children}
     </section>

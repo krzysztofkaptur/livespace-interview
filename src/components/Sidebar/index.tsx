@@ -5,8 +5,8 @@ export default function Sidebar() {
     <aside className="sidebar">
       <nav className="sidebar__nav">
         <Link to="/">Characters</Link>
-        <Link to="/">Vehicles</Link>
-        <Link to="/">Planets</Link>
+        <Link to="/vehicles">Vehicles</Link>
+        <Link to="/planets">Planets</Link>
       </nav>
     </aside>
   )
