@@ -1,16 +1,19 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 
 import DefaultLayout from '@/layouts/Default'
 import List from '@/components/List'
 import Card from '@/components/Card'
+import Pagination from '@/components/Pagination'
 
 import { fetchCharacters } from '@/services/characters'
 
 export default function HomePage() {
+  const [currentPage, setCurrentPage] = useState(1)
   const { data: characters } = useQuery({
-    queryKey: ['characters'],
-    queryFn: fetchCharacters
+    queryKey: ['characters', currentPage],
+    queryFn: () => fetchCharacters(currentPage)
   })
 
   return (
@@ -19,7 +22,7 @@ export default function HomePage() {
         <h1>Characters</h1>
         <List>
           {characters?.results?.map(character => (
-            <Card>
+            <Card key={character.name}>
               <img src="https://placehold.co/150x150" alt="" />
               <header>
                 <h3>
@@ -29,6 +32,13 @@ export default function HomePage() {
             </Card>
           ))}
         </List>
+        {characters?.count ? (
+          <Pagination
+            total={characters?.count}
+            currentPage={currentPage}
+            handlePageChange={page => setCurrentPage(page)}
+          />
+        ) : null}
       </section>
     </DefaultLayout>
   )
