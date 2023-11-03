@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 export default function Sidebar() {
   return (
     <aside className="sidebar">
       <nav className="sidebar__nav">
-        <Link to="/">Characters</Link>
-        <Link to="/vehicles">Vehicles</Link>
-        <Link to="/planets">Planets</Link>
+        <NavLink to="/">Characters</NavLink>
+        <NavLink to="/vehicles">Vehicles</NavLink>
+        <NavLink to="/planets">Planets</NavLink>
       </nav>
     </aside>
   )
