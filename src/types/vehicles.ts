@@ -1,3 +1,7 @@
+import { TApiRes } from './general'
+
+export type TVehiclesRes = TApiRes<TVehicle[]>
+
 export type TVehicle = {
   name: string
   model: string
