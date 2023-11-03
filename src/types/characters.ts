@@ -1,6 +1,6 @@
 import { TApiRes } from './general'
 
-export type TCharactersRes = TApiRes<TCharacter>
+export type TCharactersRes = TApiRes<TCharacter[]>
 
 export type TCharacter = {
   name: string

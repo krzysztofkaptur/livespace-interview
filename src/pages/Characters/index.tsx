@@ -8,10 +8,11 @@ import Card from '@/components/Card'
 import Pagination from '@/components/Pagination'
 
 import { fetchCharacters } from '@/services/characters'
+import { getIdFromUrl } from '@/utils/helpers'
 
 export default function HomePage() {
   const [currentPage, setCurrentPage] = useState(1)
-  const { data: characters } = useQuery({
+  const { data: charactersRes } = useQuery({
     queryKey: ['characters', currentPage],
     queryFn: () => fetchCharacters(currentPage)
   })
@@ -21,20 +22,24 @@ export default function HomePage() {
       <section className="characters">
         <h1>Characters</h1>
         <List>
-          {characters?.results?.map(character => (
-            <Card key={character.name}>
-              <img src="https://placehold.co/150x150" alt="" />
-              <header>
-                <h3>
-                  <Link to={`/characters/1`}>{character.name}</Link>
-                </h3>
-              </header>
-            </Card>
-          ))}
+          {charactersRes?.results?.map(character => {
+            const id = getIdFromUrl(character.url)
+
+            return (
+              <Card key={character.name}>
+                <img src="https://placehold.co/150x150" alt="" />
+                <header>
+                  <h3>
+                    <Link to={`/characters/${id}`}>{character.name}</Link>
+                  </h3>
+                </header>
+              </Card>
+            )
+          })}
         </List>
-        {characters?.count ? (
+        {charactersRes?.count ? (
           <Pagination
-            total={characters?.count}
+            total={charactersRes?.count}
             currentPage={currentPage}
             handlePageChange={page => setCurrentPage(page)}
           />
