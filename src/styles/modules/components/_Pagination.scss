@@ -1,0 +1,16 @@
+.pagination {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+
+  li {
+    &.selected {
+      font-weight: 700;
+    }
+
+    a {
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+  }
+}
