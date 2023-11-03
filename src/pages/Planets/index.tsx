@@ -6,6 +6,7 @@ import DefaultLayout from '@/layouts/Default'
 import List from '@/components/List'
 import Card from '@/components/Card'
 import Pagination from '@/components/Pagination'
+import Avatar from '@/components/Avatar'
 
 import { fetchPlanets } from '@/services/planets'
 import { getIdFromUrl } from '@/utils/helpers'
@@ -27,7 +28,8 @@ export default function PlanetsPage() {
 
             return (
               <Card key={planet.name}>
-                <img src="https://placehold.co/150x150" alt="" />
+                <Avatar src={`/images/planets/${id}.jpg`} alt={planet.name} />
+
                 <header>
                   <h3>
                     <Link to={`/planets/${id}`}>{planet.name}</Link>

@@ -6,6 +6,7 @@ import DefaultLayout from '@/layouts/Default'
 import List from '@/components/List'
 import Card from '@/components/Card'
 import Pagination from '@/components/Pagination'
+import Avatar from '@/components/Avatar'
 
 import { fetchCharacters } from '@/services/characters'
 import { getIdFromUrl } from '@/utils/helpers'
@@ -27,7 +28,10 @@ export default function HomePage() {
 
             return (
               <Card key={character.name}>
-                <img src="https://placehold.co/150x150" alt="" />
+                <Avatar
+                  src={`/images/characters/${id}.jpg`}
+                  alt={character.name}
+                />
                 <header>
                   <h3>
                     <Link to={`/characters/${id}`}>{character.name}</Link>

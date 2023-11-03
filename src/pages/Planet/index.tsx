@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 
 import DefaultLayout from '@/layouts/Default'
+import Avatar from '@/components/Avatar'
 
 import { fetchPlanet } from '@/services/planets'
 import { getIdFromUrl } from '@/utils/helpers'
@@ -19,7 +20,7 @@ export default function PlanetPage() {
       <section className="planet">
         <article>
           <header>
-            <img src="https://placehold.co/150x150" alt="" />
+            <Avatar src={`/images/planets/${id}.jpg`} alt={planet?.name} />
             <h1>{planet?.name}</h1>
           </header>
           <p>population count: {planet?.population}</p>

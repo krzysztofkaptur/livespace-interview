@@ -6,6 +6,7 @@ import DefaultLayout from '@/layouts/Default'
 import List from '@/components/List'
 import Card from '@/components/Card'
 import Pagination from '@/components/Pagination'
+import Avatar from '@/components/Avatar'
 
 import { fetchVehicles } from '@/services/vehicles'
 import { getIdFromUrl } from '@/utils/helpers'
@@ -27,7 +28,7 @@ export default function VehiclesPage() {
 
             return (
               <Card key={vehicle.name}>
-                <img src="https://placehold.co/150x150" alt="" />
+                <Avatar src={`/images/vehicles/${id}.jpg`} alt={vehicle.name} />
                 <header>
                   <h3>
                     <Link to={`/vehicles/${id}`}>{vehicle.name}</Link>
