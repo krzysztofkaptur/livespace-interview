@@ -1,3 +1,7 @@
+import { TApiRes } from './general'
+
+export type TPlanetsRes = TApiRes<TPlanet[]>
+
 export type TPlanet = {
   name: string
   rotation_period: string
