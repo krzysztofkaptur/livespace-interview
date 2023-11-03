@@ -17,13 +17,13 @@ export default function CharacterPage() {
   })
 
   const { data: planet } = useQuery({
-    queryKey: ['planet'],
+    queryKey: ['planet', id],
     queryFn: () => fetchPlanet(getIdFromUrl(character?.homeworld as string)),
     enabled: !!character?.homeworld
   })
 
   const { data: species } = useQuery({
-    queryKey: ['species'],
+    queryKey: ['species', id],
     queryFn: () => fetchSpecies(getIdFromUrl(character?.species[0] as string)),
     enabled: !!character?.species.length
   })
