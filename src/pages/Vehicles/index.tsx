@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
 
 import DefaultLayout from '@/layouts/Default'
 import List from '@/components/List'
@@ -10,9 +9,10 @@ import Avatar from '@/components/Avatar'
 
 import { fetchVehicles } from '@/services/vehicles'
 import { getIdFromUrl } from '@/utils/helpers'
+import usePagination from '@/hooks/usePagination'
 
 export default function VehiclesPage() {
-  const [currentPage, setCurrentPage] = useState(1)
+  const { currentPage } = usePagination()
   const { data: vehiclesRes } = useQuery({
     queryKey: ['characters', currentPage],
     queryFn: () => fetchVehicles(currentPage)
@@ -38,13 +38,7 @@ export default function VehiclesPage() {
             )
           })}
         </List>
-        {vehiclesRes?.count ? (
-          <Pagination
-            total={vehiclesRes?.count}
-            currentPage={currentPage}
-            handlePageChange={page => setCurrentPage(page)}
-          />
-        ) : null}
+        {vehiclesRes?.count ? <Pagination total={vehiclesRes?.count} /> : null}
       </section>
     </DefaultLayout>
   )
