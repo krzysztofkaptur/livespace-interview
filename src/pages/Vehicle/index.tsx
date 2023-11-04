@@ -10,7 +10,7 @@ export default function VehiclePage() {
   const { id } = useParams()
 
   const { data: vehicle } = useMyQuery({
-    queryKey: ['planet', id],
+    queryKey: ['vehicle', id],
     queryFn: () => fetchVehicle(id as string)
   })
 
