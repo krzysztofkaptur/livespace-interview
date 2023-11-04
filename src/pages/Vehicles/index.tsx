@@ -13,7 +13,7 @@ import useMyQuery from '@/hooks/useMyQuery'
 export default function VehiclesPage() {
   const { currentPage } = usePagination()
   const { data: vehiclesRes } = useMyQuery({
-    queryKey: ['characters', currentPage],
+    queryKey: ['vehicles', currentPage],
     queryFn: () => fetchVehicles(currentPage)
   })
 

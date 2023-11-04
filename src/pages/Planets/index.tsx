@@ -13,7 +13,7 @@ import useMyQuery from '@/hooks/useMyQuery'
 export default function PlanetsPage() {
   const { currentPage } = usePagination()
   const { data: planetsRes } = useMyQuery({
-    queryKey: ['characters', currentPage],
+    queryKey: ['planets', currentPage],
     queryFn: () => fetchPlanets(currentPage)
   })
 
