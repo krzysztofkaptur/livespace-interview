@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 
-import DefaultLayout from '@/layouts/Default'
 import List from '@/components/List'
 import Card from '@/components/Card'
 import Pagination from '@/components/Pagination'
@@ -19,29 +18,27 @@ export default function PlanetsPage() {
   })
 
   return (
-    <DefaultLayout>
-      <section className="planets">
-        <h1>planets</h1>
-        <List>
-          {planetsRes?.results?.map(planet => {
-            const id = getIdFromUrl(planet.url)
+    <section className="planets">
+      <h1>planets</h1>
+      <List>
+        {planetsRes?.results?.map(planet => {
+          const id = getIdFromUrl(planet.url)
 
-            return (
-              <Card key={planet.name}>
-                <Avatar src={`/images/planets/${id}.jpg`} alt={planet.name} />
+          return (
+            <Card key={planet.name}>
+              <Avatar src={`/images/planets/${id}.jpg`} alt={planet.name} />
 
-                <header>
-                  <h3>
-                    <Link to={`/planets/${id}`}>{planet.name}</Link>
-                  </h3>
-                </header>
-              </Card>
-            )
-          })}
-        </List>
+              <header>
+                <h3>
+                  <Link to={`/planets/${id}`}>{planet.name}</Link>
+                </h3>
+              </header>
+            </Card>
+          )
+        })}
+      </List>
 
-        {planetsRes?.count ? <Pagination total={planetsRes?.count} /> : null}
-      </section>
-    </DefaultLayout>
+      {planetsRes?.count ? <Pagination total={planetsRes?.count} /> : null}
+    </section>
   )
 }

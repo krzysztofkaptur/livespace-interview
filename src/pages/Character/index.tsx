@@ -1,6 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
 
-import DefaultLayout from '@/layouts/Default'
 import Avatar from '@/components/Avatar'
 
 import { fetchCharacter } from '@/services/characters'
@@ -30,44 +29,37 @@ export default function CharacterPage() {
   })
 
   return (
-    <DefaultLayout>
-      <section className="character">
-        <article>
-          <header>
-            <Avatar
-              src={`/images/characters/${id}.jpg`}
-              alt={character?.name}
-            />
-            <h1>{character?.name}</h1>
-          </header>
-          <p>
-            <span>planet of origin:</span>
-            {planet?.url ? (
-              <Link to={`/planets/${getIdFromUrl(planet?.url as string)}`}>
-                {planet?.name}
-              </Link>
-            ) : null}
-          </p>
+    <section className="character">
+      <article>
+        <header>
+          <Avatar src={`/images/characters/${id}.jpg`} alt={character?.name} />
+          <h1>{character?.name}</h1>
+        </header>
+        <p>
+          <span>planet of origin:</span>
+          {planet?.url ? (
+            <Link to={`/planets/${getIdFromUrl(planet?.url as string)}`}>
+              {planet?.name}
+            </Link>
+          ) : null}
+        </p>
+        <div>
+          <span>vehicles:</span>
           <div>
-            <span>vehicles:</span>
-            <div>
-              {character?.vehicles?.map(vehicle => (
-                <div key={vehicle}>
-                  <Link to={`/vehicles/${getIdFromUrl(vehicle)}`}>
-                    {vehicle}
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div>
-            <span>race:</span>
-            {character?.species?.map(() => (
-              <span key={species?.name}>{species?.name}</span>
+            {character?.vehicles?.map(vehicle => (
+              <div key={vehicle}>
+                <Link to={`/vehicles/${getIdFromUrl(vehicle)}`}>{vehicle}</Link>
+              </div>
             ))}
           </div>
-        </article>
-      </section>
-    </DefaultLayout>
+        </div>
+        <div>
+          <span>race:</span>
+          {character?.species?.map(() => (
+            <span key={species?.name}>{species?.name}</span>
+          ))}
+        </div>
+      </article>
+    </section>
   )
 }
