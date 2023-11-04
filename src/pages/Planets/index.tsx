@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
 
 import DefaultLayout from '@/layouts/Default'
 import List from '@/components/List'
@@ -10,10 +9,11 @@ import Avatar from '@/components/Avatar'
 import { fetchPlanets } from '@/services/planets'
 import { getIdFromUrl } from '@/utils/helpers'
 import usePagination from '@/hooks/usePagination'
+import useMyQuery from '@/hooks/useMyQuery'
 
 export default function PlanetsPage() {
   const { currentPage } = usePagination()
-  const { data: planetsRes } = useQuery({
+  const { data: planetsRes } = useMyQuery({
     queryKey: ['characters', currentPage],
     queryFn: () => fetchPlanets(currentPage)
   })

@@ -1,16 +1,16 @@
 import { Link, useParams } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
 
 import DefaultLayout from '@/layouts/Default'
 import Avatar from '@/components/Avatar'
 
 import { fetchPlanet } from '@/services/planets'
 import { getIdFromUrl } from '@/utils/helpers'
+import useMyQuery from '@/hooks/useMyQuery'
 
 export default function PlanetPage() {
   const { id } = useParams()
 
-  const { data: planet } = useQuery({
+  const { data: planet } = useMyQuery({
     queryKey: ['planet', id],
     queryFn: () => fetchPlanet(id as string)
   })
