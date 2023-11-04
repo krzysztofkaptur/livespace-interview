@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 
-import DefaultLayout from '@/layouts/Default'
 import List from '@/components/List'
 import Card from '@/components/Card'
 import Pagination from '@/components/Pagination'
@@ -19,27 +18,25 @@ export default function VehiclesPage() {
   })
 
   return (
-    <DefaultLayout>
-      <section className="vehicles">
-        <h1>vehicles</h1>
-        <List>
-          {vehiclesRes?.results?.map(vehicle => {
-            const id = getIdFromUrl(vehicle.url)
+    <section className="vehicles">
+      <h1>vehicles</h1>
+      <List>
+        {vehiclesRes?.results?.map(vehicle => {
+          const id = getIdFromUrl(vehicle.url)
 
-            return (
-              <Card key={vehicle.name}>
-                <Avatar src={`/images/vehicles/${id}.jpg`} alt={vehicle.name} />
-                <header>
-                  <h3>
-                    <Link to={`/vehicles/${id}`}>{vehicle.name}</Link>
-                  </h3>
-                </header>
-              </Card>
-            )
-          })}
-        </List>
-        {vehiclesRes?.count ? <Pagination total={vehiclesRes?.count} /> : null}
-      </section>
-    </DefaultLayout>
+          return (
+            <Card key={vehicle.name}>
+              <Avatar src={`/images/vehicles/${id}.jpg`} alt={vehicle.name} />
+              <header>
+                <h3>
+                  <Link to={`/vehicles/${id}`}>{vehicle.name}</Link>
+                </h3>
+              </header>
+            </Card>
+          )
+        })}
+      </List>
+      {vehiclesRes?.count ? <Pagination total={vehiclesRes?.count} /> : null}
+    </section>
   )
 }

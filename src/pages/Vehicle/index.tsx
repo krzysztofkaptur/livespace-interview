@@ -1,6 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
 
-import DefaultLayout from '@/layouts/Default'
 import Avatar from '@/components/Avatar'
 
 import { fetchVehicle } from '@/services/vehicles'
@@ -16,26 +15,24 @@ export default function VehiclePage() {
   })
 
   return (
-    <DefaultLayout>
-      <section className="vehicle">
-        <article>
-          <header>
-            <Avatar src={`/images/vehicles/${id}.jpg`} alt={vehicle?.name} />
-            <h1>{vehicle?.name}</h1>
-          </header>
-          <p>type: {vehicle?.model}</p>
+    <section className="vehicle">
+      <article>
+        <header>
+          <Avatar src={`/images/vehicles/${id}.jpg`} alt={vehicle?.name} />
+          <h1>{vehicle?.name}</h1>
+        </header>
+        <p>type: {vehicle?.model}</p>
+        <div>
+          <span>characters connected</span>
           <div>
-            <span>characters connected</span>
-            <div>
-              {vehicle?.pilots?.map(pilot => (
-                <div>
-                  <Link to={`/characters/${getIdFromUrl(pilot)}`}>{pilot}</Link>
-                </div>
-              ))}
-            </div>
+            {vehicle?.pilots?.map(pilot => (
+              <div>
+                <Link to={`/characters/${getIdFromUrl(pilot)}`}>{pilot}</Link>
+              </div>
+            ))}
           </div>
-        </article>
-      </section>
-    </DefaultLayout>
+        </div>
+      </article>
+    </section>
   )
 }
