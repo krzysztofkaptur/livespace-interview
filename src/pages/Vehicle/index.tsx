@@ -26,7 +26,7 @@ export default function VehiclePage() {
           <span>characters connected</span>
           <div>
             {vehicle?.pilots?.map(pilot => (
-              <div>
+              <div key={pilot}>
                 <Link to={`/characters/${getIdFromUrl(pilot)}`}>{pilot}</Link>
               </div>
             ))}

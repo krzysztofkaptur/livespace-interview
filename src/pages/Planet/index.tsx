@@ -22,18 +22,18 @@ export default function PlanetPage() {
           <h1>{planet?.name}</h1>
         </header>
         <p>population count: {planet?.population}</p>
-        <p>
+        <div>
           <span>characters connected:</span>
           <div>
             {planet?.residents?.map(resident => (
-              <div>
+              <div key={resident}>
                 <Link to={`/characters/${getIdFromUrl(resident)}`}>
                   {resident}
                 </Link>
               </div>
             ))}
           </div>
-        </p>
+        </div>
       </article>
     </section>
   )
