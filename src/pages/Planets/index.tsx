@@ -8,7 +8,7 @@ import Avatar from '@/components/Avatar'
 import { fetchPlanets } from '@/services/planets'
 import { getIdFromUrl } from '@/utils/helpers'
 import usePagination from '@/hooks/usePagination'
-import useMyQuery from '@/hooks/useMyQuery'
+import { useMyQuery } from '@/hooks/useMyQuery'
 
 export default function PlanetsPage() {
   const { currentPage } = usePagination()

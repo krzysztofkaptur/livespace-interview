@@ -1,10 +1,12 @@
+import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 import Avatar from '@/components/Avatar'
 
 import { fetchPlanet } from '@/services/planets'
 import { getIdFromUrl } from '@/utils/helpers'
-import useMyQuery from '@/hooks/useMyQuery'
+import { useMyQuery, useMyQueries } from '@/hooks/useMyQuery'
+import { fetchCharacter } from '@/services/characters'
 
 export default function PlanetPage() {
   const { id } = useParams()
@@ -13,6 +15,19 @@ export default function PlanetPage() {
     queryKey: ['planet', id],
     queryFn: () => fetchPlanet(id as string)
   })
+
+  const { data: charactersData, setIds: setCharactersIds } = useMyQueries({
+    query: fetchCharacter,
+    queryName: 'residents'
+  })
+
+  useEffect(() => {
+    if (planet?.residents) {
+      setCharactersIds(
+        planet?.residents.map(resident => getIdFromUrl(resident))
+      )
+    }
+  }, [planet, setCharactersIds])
 
   return (
     <section className="planet">
@@ -25,10 +40,13 @@ export default function PlanetPage() {
         <div>
           <span>characters connected:</span>
           <div>
-            {planet?.residents?.map(resident => (
-              <div key={resident}>
-                <Link to={`/characters/${getIdFromUrl(resident)}`}>
-                  {resident}
+            {charactersData?.data?.map(character => (
+              <div key={character}>
+                <Link
+                  to={`/characters/${character?.url &&
+                    getIdFromUrl(character?.url as string)}`}
+                >
+                  {character?.name}
                 </Link>
               </div>
             ))}

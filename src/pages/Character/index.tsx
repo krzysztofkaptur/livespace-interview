@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
+import { useEffect } from 'react'
 
 import Avatar from '@/components/Avatar'
 
@@ -6,7 +7,8 @@ import { fetchCharacter } from '@/services/characters'
 import { fetchPlanet } from '@/services/planets'
 import { getIdFromUrl } from '@/utils/helpers'
 import { fetchSpecies } from '@/services/species'
-import useMyQuery from '@/hooks/useMyQuery'
+import { fetchVehicle } from '@/services/vehicles'
+import { useMyQuery, useMyQueries } from '@/hooks/useMyQuery'
 
 export default function CharacterPage() {
   const { id } = useParams()
@@ -28,6 +30,17 @@ export default function CharacterPage() {
     enabled: !!character?.species.length
   })
 
+  const { data: vehiclesData, setIds: setVehiclesIds } = useMyQueries({
+    query: fetchVehicle,
+    queryName: 'characterVehicles'
+  })
+
+  useEffect(() => {
+    if (character?.vehicles) {
+      setVehiclesIds(character?.vehicles.map(vehicle => getIdFromUrl(vehicle)))
+    }
+  }, [character, setVehiclesIds])
+
   return (
     <section className="character">
       <article>
@@ -46,9 +59,14 @@ export default function CharacterPage() {
         <div>
           <span>vehicles:</span>
           <div>
-            {character?.vehicles?.map(vehicle => (
+            {vehiclesData?.data?.map(vehicle => (
               <div key={vehicle}>
-                <Link to={`/vehicles/${getIdFromUrl(vehicle)}`}>{vehicle}</Link>
+                <Link
+                  to={`/vehicles/${vehicle?.url &&
+                    getIdFromUrl(vehicle?.url as string)}`}
+                >
+                  {vehicle?.name}
+                </Link>
               </div>
             ))}
           </div>
