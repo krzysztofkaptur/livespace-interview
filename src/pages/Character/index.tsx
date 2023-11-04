@@ -63,7 +63,7 @@ export default function CharacterPage() {
           <div>
             <span>race:</span>
             {character?.species?.map(() => (
-              <span>{species?.name}</span>
+              <span key={species?.name}>{species?.name}</span>
             ))}
           </div>
         </article>

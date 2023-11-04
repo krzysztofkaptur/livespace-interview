@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 
@@ -10,9 +9,11 @@ import Avatar from '@/components/Avatar'
 
 import { fetchCharacters } from '@/services/characters'
 import { getIdFromUrl } from '@/utils/helpers'
+import usePagination from '@/hooks/usePagination'
 
 export default function HomePage() {
-  const [currentPage, setCurrentPage] = useState(1)
+  const { currentPage } = usePagination()
+
   const { data: charactersRes } = useQuery({
     queryKey: ['characters', currentPage],
     queryFn: () => fetchCharacters(currentPage)
@@ -50,11 +51,7 @@ export default function HomePage() {
             })}
         </List>
         {charactersRes?.count ? (
-          <Pagination
-            total={charactersRes?.count}
-            currentPage={currentPage}
-            handlePageChange={page => setCurrentPage(page)}
-          />
+          <Pagination total={charactersRes?.count} />
         ) : null}
       </section>
     </DefaultLayout>

@@ -1,18 +1,20 @@
 import ReactPaginate from 'react-paginate'
 
+import usePagination from '@/hooks/usePagination'
+
 type TProps = {
   total: number
-  currentPage: number
-  handlePageChange: (page: number) => void
 }
 
 export default function Pagination(props: TProps) {
-  const { total = 0, handlePageChange, currentPage } = props
+  const { currentPage, setSearchParams } = usePagination()
+
+  const { total = 0 } = props
 
   const pageCount = Math.ceil(total / 10)
 
   const handlePageClick = ({ selected }: { selected: number }) => {
-    handlePageChange(selected + 1)
+    setSearchParams({ page: `${selected + 1}` })
   }
 
   return (

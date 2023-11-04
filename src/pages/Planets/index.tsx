@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
 import DefaultLayout from '@/layouts/Default'
@@ -10,9 +9,10 @@ import Avatar from '@/components/Avatar'
 
 import { fetchPlanets } from '@/services/planets'
 import { getIdFromUrl } from '@/utils/helpers'
+import usePagination from '@/hooks/usePagination'
 
 export default function PlanetsPage() {
-  const [currentPage, setCurrentPage] = useState(1)
+  const { currentPage } = usePagination()
   const { data: planetsRes } = useQuery({
     queryKey: ['characters', currentPage],
     queryFn: () => fetchPlanets(currentPage)
@@ -40,13 +40,7 @@ export default function PlanetsPage() {
           })}
         </List>
 
-        {planetsRes?.count ? (
-          <Pagination
-            total={planetsRes?.count}
-            currentPage={currentPage}
-            handlePageChange={page => setCurrentPage(page)}
-          />
-        ) : null}
+        {planetsRes?.count ? <Pagination total={planetsRes?.count} /> : null}
       </section>
     </DefaultLayout>
   )
