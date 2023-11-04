@@ -23,23 +23,31 @@ export default function HomePage() {
       <section className="characters">
         <h1>Characters</h1>
         <List>
-          {charactersRes?.results?.map(character => {
-            const id = getIdFromUrl(character.url)
-
-            return (
-              <Card key={character.name}>
-                <Avatar
-                  src={`/images/characters/${id}.jpg`}
-                  alt={character.name}
-                />
-                <header>
-                  <h3>
-                    <Link to={`/characters/${id}`}>{character.name}</Link>
-                  </h3>
-                </header>
-              </Card>
+          {charactersRes?.results
+            ?.sort((character1, character2) =>
+              character1.name > character2.name
+                ? 1
+                : character2.name > character1.name
+                ? -1
+                : 0
             )
-          })}
+            .map(character => {
+              const id = getIdFromUrl(character.url)
+
+              return (
+                <Card key={character.name}>
+                  <Avatar
+                    src={`/images/characters/${id}.jpg`}
+                    alt={character.name}
+                  />
+                  <header>
+                    <h3>
+                      <Link to={`/characters/${id}`}>{character.name}</Link>
+                    </h3>
+                  </header>
+                </Card>
+              )
+            })}
         </List>
         {charactersRes?.count ? (
           <Pagination
