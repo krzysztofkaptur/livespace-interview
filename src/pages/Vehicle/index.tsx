@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link, useParams } from 'react-router-dom'
 
 import DefaultLayout from '@/layouts/Default'
+import Avatar from '@/components/Avatar'
 
 import { fetchVehicle } from '@/services/vehicles'
 import { getIdFromUrl } from '@/utils/helpers'
@@ -19,7 +20,7 @@ export default function VehiclePage() {
       <section className="vehicle">
         <article>
           <header>
-            <img src="https://placehold.co/150x150" alt="" />
+            <Avatar src={`/images/vehicles/${id}.jpg`} alt={vehicle?.name} />
             <h1>{vehicle?.name}</h1>
           </header>
           <p>type: {vehicle?.model}</p>

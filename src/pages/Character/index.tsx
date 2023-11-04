@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 
 import DefaultLayout from '@/layouts/Default'
+import Avatar from '@/components/Avatar'
 
 import { fetchCharacter } from '@/services/characters'
 import { fetchPlanet } from '@/services/planets'
@@ -33,7 +34,10 @@ export default function CharacterPage() {
       <section className="character">
         <article>
           <header>
-            <img src="https://placehold.co/150x150" alt="" />
+            <Avatar
+              src={`/images/characters/${id}.jpg`}
+              alt={character?.name}
+            />
             <h1>{character?.name}</h1>
           </header>
           <p>
