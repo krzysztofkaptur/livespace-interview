@@ -1,5 +1,4 @@
 import { Link, useParams } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
 
 import DefaultLayout from '@/layouts/Default'
 import Avatar from '@/components/Avatar'
@@ -8,22 +7,23 @@ import { fetchCharacter } from '@/services/characters'
 import { fetchPlanet } from '@/services/planets'
 import { getIdFromUrl } from '@/utils/helpers'
 import { fetchSpecies } from '@/services/species'
+import useMyQuery from '@/hooks/useMyQuery'
 
 export default function CharacterPage() {
   const { id } = useParams()
 
-  const { data: character } = useQuery({
+  const { data: character } = useMyQuery({
     queryKey: ['character', id],
     queryFn: () => fetchCharacter(id as string)
   })
 
-  const { data: planet } = useQuery({
+  const { data: planet } = useMyQuery({
     queryKey: ['planet', id],
     queryFn: () => fetchPlanet(getIdFromUrl(character?.homeworld as string)),
     enabled: !!character?.homeworld
   })
 
-  const { data: species } = useQuery({
+  const { data: species } = useMyQuery({
     queryKey: ['species', id],
     queryFn: () => fetchSpecies(getIdFromUrl(character?.species[0] as string)),
     enabled: !!character?.species.length

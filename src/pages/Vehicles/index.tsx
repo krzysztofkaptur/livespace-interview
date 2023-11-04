@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
 
 import DefaultLayout from '@/layouts/Default'
 import List from '@/components/List'
@@ -10,10 +9,11 @@ import Avatar from '@/components/Avatar'
 import { fetchVehicles } from '@/services/vehicles'
 import { getIdFromUrl } from '@/utils/helpers'
 import usePagination from '@/hooks/usePagination'
+import useMyQuery from '@/hooks/useMyQuery'
 
 export default function VehiclesPage() {
   const { currentPage } = usePagination()
-  const { data: vehiclesRes } = useQuery({
+  const { data: vehiclesRes } = useMyQuery({
     queryKey: ['characters', currentPage],
     queryFn: () => fetchVehicles(currentPage)
   })

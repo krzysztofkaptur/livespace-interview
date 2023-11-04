@@ -1,4 +1,3 @@
-import { useQuery } from '@tanstack/react-query'
 import { Link, useParams } from 'react-router-dom'
 
 import DefaultLayout from '@/layouts/Default'
@@ -6,11 +5,12 @@ import Avatar from '@/components/Avatar'
 
 import { fetchVehicle } from '@/services/vehicles'
 import { getIdFromUrl } from '@/utils/helpers'
+import useMyQuery from '@/hooks/useMyQuery'
 
 export default function VehiclePage() {
   const { id } = useParams()
 
-  const { data: vehicle } = useQuery({
+  const { data: vehicle } = useMyQuery({
     queryKey: ['planet', id],
     queryFn: () => fetchVehicle(id as string)
   })
