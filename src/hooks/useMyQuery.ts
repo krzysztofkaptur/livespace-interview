@@ -2,7 +2,12 @@ import { useState } from 'react'
 import { useQuery, UseQueryOptions, useQueries } from '@tanstack/react-query'
 
 // TODO - proper return type
-export const useMyQuery = (options: UseQueryOptions) => {
+
+type TMyQueryReturn<T> = {
+  data: T
+}
+
+export const useMyQuery = (options: UseQueryOptions): TMyQueryReturn<any> => {
   const { data } = useQuery(options)
 
   return {

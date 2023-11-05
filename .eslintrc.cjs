@@ -14,5 +14,7 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    // TODO - remove
+    "@typescript-eslint/no-explicit-any": "off"
   },
 }
