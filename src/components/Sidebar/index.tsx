@@ -1,12 +1,22 @@
 import { NavLink } from 'react-router-dom'
 
-export default function Sidebar() {
+import { TRoute } from '@/types/general'
+
+type TProps = {
+  routes: TRoute[]
+}
+
+export default function Sidebar(props: TProps) {
+  const { routes } = props
+
   return (
     <aside className="sidebar">
       <nav className="sidebar__nav">
-        <NavLink to="/">Characters</NavLink>
-        <NavLink to="/vehicles">Vehicles</NavLink>
-        <NavLink to="/planets">Planets</NavLink>
+        {routes.map(link => (
+          <NavLink key={link.label} to={link.to}>
+            {link.label}
+          </NavLink>
+        ))}
       </nav>
     </aside>
   )

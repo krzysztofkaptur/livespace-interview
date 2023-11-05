@@ -4,3 +4,8 @@ export type TApiRes<T> = {
   previous: string | null
   results: T
 }
+
+export type TRoute = {
+  to: string
+  label: string
+}
