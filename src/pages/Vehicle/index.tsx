@@ -13,7 +13,7 @@ export default function VehiclePage() {
 
   const { data: vehicle } = useMyQuery({
     queryKey: ['vehicle', id],
-    queryFn: () => fetchVehicle(id as string)
+    queryFn: ({ signal }) => fetchVehicle({ id: id as string, signal })
   })
 
   const { data: pilotsData, setIds: setPilotsIds } = useMyQueries({

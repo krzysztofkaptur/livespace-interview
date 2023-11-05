@@ -10,13 +10,19 @@ export const useMyQuery = (options: UseQueryOptions) => {
   }
 }
 
-export const useMyQueries = ({ query, queryName }) => {
+export const useMyQueries = ({
+  query,
+  queryName
+}: {
+  query: any
+  queryName: string
+}) => {
   const [ids, setIds] = useState([])
 
   const results = useQueries({
     queries: ids.map(id => ({
       queryKey: [queryName, id],
-      queryFn: () => query(id),
+      queryFn: ({ signal }: { signal: AbortSignal }) => query({ id, signal }),
       enabled: !!ids.length
     })),
     combine: results => {

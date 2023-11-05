@@ -15,7 +15,7 @@ export default function HomePage() {
 
   const { data: charactersRes } = useMyQuery({
     queryKey: ['characters', currentPage],
-    queryFn: () => fetchCharacters(currentPage)
+    queryFn: ({ signal }) => fetchCharacters({ page: currentPage, signal })
   })
 
   return (

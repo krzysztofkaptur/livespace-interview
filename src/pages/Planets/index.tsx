@@ -14,7 +14,7 @@ export default function PlanetsPage() {
   const { currentPage } = usePagination()
   const { data: planetsRes } = useMyQuery({
     queryKey: ['planets', currentPage],
-    queryFn: () => fetchPlanets(currentPage)
+    queryFn: ({ signal }) => fetchPlanets({ page: currentPage, signal })
   })
 
   return (

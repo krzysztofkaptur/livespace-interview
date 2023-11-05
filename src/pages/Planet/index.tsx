@@ -13,7 +13,7 @@ export default function PlanetPage() {
 
   const { data: planet } = useMyQuery({
     queryKey: ['planet', id],
-    queryFn: () => fetchPlanet(id as string)
+    queryFn: ({ signal }) => fetchPlanet({ id: id as string, signal })
   })
 
   const { data: charactersData, setIds: setCharactersIds } = useMyQueries({

@@ -14,7 +14,7 @@ export default function VehiclesPage() {
   const { currentPage } = usePagination()
   const { data: vehiclesRes } = useMyQuery({
     queryKey: ['vehicles', currentPage],
-    queryFn: () => fetchVehicles(currentPage)
+    queryFn: ({ signal }) => fetchVehicles({ page: currentPage, signal })
   })
 
   return (

@@ -15,18 +15,23 @@ export default function CharacterPage() {
 
   const { data: character } = useMyQuery({
     queryKey: ['character', id],
-    queryFn: () => fetchCharacter(id as string)
+    queryFn: ({ signal }) => fetchCharacter({ id: id as string, signal })
   })
 
   const { data: planet } = useMyQuery({
     queryKey: ['planet', id],
-    queryFn: () => fetchPlanet(getIdFromUrl(character?.homeworld as string)),
+    queryFn: ({ signal }) =>
+      fetchPlanet({ id: getIdFromUrl(character?.homeworld as string), signal }),
     enabled: !!character?.homeworld
   })
 
   const { data: species } = useMyQuery({
     queryKey: ['species', id],
-    queryFn: () => fetchSpecies(getIdFromUrl(character?.species[0] as string)),
+    queryFn: ({ signal }) =>
+      fetchSpecies({
+        id: getIdFromUrl(character?.species[0] as string),
+        signal
+      }),
     enabled: !!character?.species.length
   })
 
