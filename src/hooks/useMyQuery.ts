@@ -1,10 +1,34 @@
-import { useQuery, UseQueryOptions } from '@tanstack/react-query'
+import { useState } from 'react'
+import { useQuery, UseQueryOptions, useQueries } from '@tanstack/react-query'
 
 // TODO - proper return type
-export default function useMyQuery(options: UseQueryOptions) {
+export const useMyQuery = (options: UseQueryOptions) => {
   const { data } = useQuery(options)
 
   return {
     data
+  }
+}
+
+export const useMyQueries = ({ query, queryName }) => {
+  const [ids, setIds] = useState([])
+
+  const results = useQueries({
+    queries: ids.map(id => ({
+      queryKey: [queryName, id],
+      queryFn: () => query(id),
+      enabled: !!ids.length
+    })),
+    combine: results => {
+      return {
+        data: results.map(result => result.data),
+        pending: results.some(result => result.isPending)
+      }
+    }
+  })
+
+  return {
+    data: results,
+    setIds
   }
 }

@@ -8,7 +8,7 @@ import Avatar from '@/components/Avatar'
 import { fetchVehicles } from '@/services/vehicles'
 import { getIdFromUrl } from '@/utils/helpers'
 import usePagination from '@/hooks/usePagination'
-import useMyQuery from '@/hooks/useMyQuery'
+import { useMyQuery } from '@/hooks/useMyQuery'
 
 export default function VehiclesPage() {
   const { currentPage } = usePagination()
