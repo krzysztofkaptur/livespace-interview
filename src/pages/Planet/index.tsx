@@ -40,8 +40,8 @@ export default function PlanetPage() {
         <div>
           <span>characters connected:</span>
           <div>
-            {charactersData?.data?.map(character => (
-              <div key={character}>
+            {charactersData?.data?.map((character, index) => (
+              <div key={index}>
                 <Link
                   to={`/characters/${character?.url &&
                     getIdFromUrl(character?.url as string)}`}
