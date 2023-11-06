@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 
 import List from '@/components/List'
 import Card from '@/components/Card'
-import Pagination from '@/components/Pagination'
 import Avatar from '@/components/Avatar'
+import Heading from '@/components/Heading'
 
 import { fetchPlanets } from '@/services/planets'
 import { getIdFromUrl } from '@/utils/helpers'
@@ -12,15 +12,15 @@ import { useMyQuery } from '@/hooks/useMyQuery'
 
 export default function PlanetsPage() {
   const { currentPage } = usePagination()
-  const { data: planetsRes } = useMyQuery({
+  const { data: planetsRes, isLoading } = useMyQuery({
     queryKey: ['planets', currentPage],
     queryFn: ({ signal }) => fetchPlanets({ page: currentPage, signal })
   })
 
   return (
     <section className="planets">
-      <h1>planets</h1>
-      <List>
+      <Heading level="h1">Planets</Heading>
+      <List total={planetsRes?.count} isLoading={isLoading}>
         {planetsRes?.results?.map(planet => {
           const id = getIdFromUrl(planet.url)
 
@@ -37,8 +37,6 @@ export default function PlanetsPage() {
           )
         })}
       </List>
-
-      {planetsRes?.count ? <Pagination total={planetsRes?.count} /> : null}
     </section>
   )
 }

@@ -8,9 +8,8 @@ type TProps = {
 }
 
 export default function Pagination(props: TProps) {
-  const { currentPage, setSearchParams } = usePagination()
-
   const { total = 0 } = props
+  const { currentPage, setSearchParams } = usePagination()
 
   const pageCount = countPages(total)
 

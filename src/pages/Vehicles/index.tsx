@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 
 import List from '@/components/List'
 import Card from '@/components/Card'
-import Pagination from '@/components/Pagination'
 import Avatar from '@/components/Avatar'
+import Heading from '@/components/Heading'
 
 import { fetchVehicles } from '@/services/vehicles'
 import { getIdFromUrl } from '@/utils/helpers'
@@ -12,15 +12,15 @@ import { useMyQuery } from '@/hooks/useMyQuery'
 
 export default function VehiclesPage() {
   const { currentPage } = usePagination()
-  const { data: vehiclesRes } = useMyQuery({
+  const { data: vehiclesRes, isLoading } = useMyQuery({
     queryKey: ['vehicles', currentPage],
     queryFn: ({ signal }) => fetchVehicles({ page: currentPage, signal })
   })
 
   return (
     <section className="vehicles">
-      <h1>vehicles</h1>
-      <List>
+      <Heading level="h1">Vehicles</Heading>
+      <List total={vehiclesRes?.count} isLoading={isLoading}>
         {vehiclesRes?.results?.map(vehicle => {
           const id = getIdFromUrl(vehicle.url)
 
@@ -36,7 +36,6 @@ export default function VehiclesPage() {
           )
         })}
       </List>
-      {vehiclesRes?.count ? <Pagination total={vehiclesRes?.count} /> : null}
     </section>
   )
 }

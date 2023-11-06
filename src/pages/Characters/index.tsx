@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 
 import List from '@/components/List'
 import Card from '@/components/Card'
-import Pagination from '@/components/Pagination'
 import Avatar from '@/components/Avatar'
+import Heading from '@/components/Heading'
 
 import { fetchCharacters } from '@/services/characters'
 import { getIdFromUrl } from '@/utils/helpers'
@@ -13,15 +13,15 @@ import { useMyQuery } from '@/hooks/useMyQuery'
 export default function HomePage() {
   const { currentPage } = usePagination()
 
-  const { data: charactersRes } = useMyQuery({
+  const { data: charactersRes, isLoading } = useMyQuery({
     queryKey: ['characters', currentPage],
     queryFn: ({ signal }) => fetchCharacters({ page: currentPage, signal })
   })
 
   return (
     <section className="characters">
-      <h1>Characters</h1>
-      <List>
+      <Heading level="h1">Characters</Heading>
+      <List total={charactersRes?.count} isLoading={isLoading}>
         {charactersRes?.results
           ?.sort((character1, character2) =>
             character1.name > character2.name
@@ -48,9 +48,6 @@ export default function HomePage() {
             )
           })}
       </List>
-      {charactersRes?.count ? (
-        <Pagination total={charactersRes?.count} />
-      ) : null}
     </section>
   )
 }
