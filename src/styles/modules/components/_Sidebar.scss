@@ -1,0 +1,15 @@
+.sidebar {
+  border-right: 1px solid $bc-primary;
+  padding: 2rem;
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .active {
+    font-weight: bold;
+    color: $text-accent;
+  }
+}
