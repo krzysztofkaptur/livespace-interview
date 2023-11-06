@@ -2,10 +2,12 @@
   display: flex;
   list-style: none;
   gap: 1rem;
+  padding: 0;
 
   li {
     &.selected {
       font-weight: 700;
+      color: $text-accent;
     }
 
     a {

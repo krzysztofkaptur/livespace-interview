@@ -5,13 +5,15 @@ import { useQuery, UseQueryOptions, useQueries } from '@tanstack/react-query'
 
 type TMyQueryReturn<T> = {
   data: T
+  isLoading: boolean
 }
 
 export const useMyQuery = (options: UseQueryOptions): TMyQueryReturn<any> => {
-  const { data } = useQuery(options)
+  const { data, isLoading } = useQuery(options)
 
   return {
-    data
+    data,
+    isLoading
   }
 }
 
